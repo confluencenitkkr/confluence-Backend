@@ -284,6 +284,44 @@ var crud = {
     }
   
   },
+editPost: async function (req, res) {
+  try {
+    // Get event ID from the request parameters
+    let eventId = req.params.id;
+    // Get the updated data from the request body
+    let updatedData = req.body;
+
+    console.log("Updating event with ID:", eventId);
+    console.log("Updated data:", updatedData);
+
+    // Find the event by ID and update it
+    let updatedEvent = await event.findByIdAndUpdate(
+      { _id: eventId },
+      updatedData, // Data to update
+      { new: true } // Return the updated document
+    );
+
+    // Check if event exists
+    if (!updatedEvent) {
+      return res.status(404).send({
+        success: false,
+        message: "Event not found",
+      });
+    }
+
+    res.status(200).send({
+      success: true,
+      message: "Event updated successfully",
+      data: updatedEvent,
+    });
+  } catch (error) {
+    console.log("Error updating event:", error);
+    res.status(400).send({
+      success: false,
+      message: error.message,
+    });
+  }
+},
 
   deleteEvent: async function (req, res) {
     try {
