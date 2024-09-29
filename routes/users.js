@@ -17,6 +17,6 @@ router.route("/getEvents").get(users.getEvent);
 router.route("/getSponsor").get(users.getSponsor);
 router.route("/deleteEvent/:id").get(users.deleteEvent);
 router.route("/getEvent/:id").get(users.getEventById);
-
+router.route("/editPost/:id").get(users.editPost);
 
 module.exports = router;
